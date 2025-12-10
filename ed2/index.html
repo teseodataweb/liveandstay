@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIVE & STAY · Edición 2 | AMPI RIVIERA NAYARIT</title>
+  <link rel="shortcut icon" href="../favicon.png" type="image/x-icon" />
+
+  <!-- plugins & libraries css -->
+  <link rel="stylesheet" href="../assets/vendor/font-awesome/all.min.css" />
+
+  <!-- tailwind css -->
+  <link rel="stylesheet" href="../src/output.css" />
+
+  <!-- custom css -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HNXC8ECL83"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-HNXC8ECL83");
+  </script>
+
+  <style>
+    .revista-container {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 80px);
+      min-height: 600px;
+    }
+    .revista-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+
+<body class="bg-edoffwhite">
+  <!-- HEADER -->
+  <header class="bg-edblue relative z-[2] px-[7.9%] xxxxl:px-[6.5%] xxxl:px-[1%] lg:px-[15px] py-[20px] xxs:py-[16px] flex items-center justify-between">
+    <div class="logo xxs:max-w-[40%]">
+      <a href="https://ampirivieranayarit.com/">
+        <img src="../assets/img/logoampi.png" alt="AMPI Riviera Nayarit" class="h-[40px]" />
+      </a>
+    </div>
+
+    <nav class="flex items-center gap-[30px] md:gap-[15px]">
+      <a href="https://ampirivieranayarit.com/" target="_blank" class="text-white hover:text-edyellow font-medium text-[16px] md:text-[14px]">
+        <i class="fa-solid fa-home mr-[6px]"></i> AMPI Riviera Nayarit
+      </a>
+      <a href="../index.html" target="_blank" class="text-white hover:text-edyellow font-medium text-[16px] md:text-[14px]">
+        <i class="fa-solid fa-newspaper mr-[6px]"></i> Ver Revistas
+      </a>
+      <a href="https://online.fliphtml5.com/jwjxer/AMPI-Digital_compressed/"
+         target="_blank"
+         class="ed-btn !h-[45px] !bg-edpurple !text-white hover:!bg-edyellow hover:!text-edblue text-[14px] md:!px-[15px]">
+        <i class="fa-solid fa-expand mr-[8px]"></i> Pantalla completa
+      </a>
+    </nav>
+  </header>
+
+  <!-- REVISTA EMBEBIDA -->
+  <main class="revista-container">
+    <iframe
+      src="https://online.fliphtml5.com/jwjxer/AMPI-Digital_compressed/"
+      seamless="seamless"
+      scrolling="no"
+      frameborder="0"
+      allowtransparency="true"
+      allowfullscreen="true">
+    </iframe>
+  </main>
+
+  <!-- FOOTER SIMPLE -->
+  <footer class="bg-edblue py-[15px] text-center text-white text-[14px]">
+    <p>&copy; 2025 AMPI Riviera Nayarit · <a href="../index.html" class="text-edyellow hover:underline">Participa en la próxima edición</a></p>
+  </footer>
+</body>
+</html>
