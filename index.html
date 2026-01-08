@@ -31,7 +31,7 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <script src="https://www.google.com/recaptcha/api.js?render=6LdfVvorAAAAAEPgxcXL05EjrM8Vc7WxKS2p8nuM"></script>
+  <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LdfVvorAAAAAEPgxcXL05EjrM8Vc7WxKS2p8nuM"></script> -->  
 
 </head>
 
@@ -500,7 +500,7 @@
 
         <!-- Formulario: Anuncio -->
         <form id="formAnuncio"
-          action="https://script.google.com/macros/s/AKfycbxCNaAPJlTpWK32ka58j-RmS7po4CIIzrp-TJr_kFX1IdwmmwVtj48lfZpr05TrqecV/exec"
+          action="https://script.google.com/macros/s/AKfycbyekYhaZVjI6pb1PhatEX9mH9d43zs2rM6jPR9xBEOhYh41Vb0NMkokGlxkIz6AzlCG/exec"
           method="POST" class="grid grid-cols-2 gap-[30px] text-[16px] w-full formulario-activo">
           <input type="hidden" name="form_id" value="showme" />
 
@@ -554,7 +554,7 @@
 
         <!-- Formulario: Artículo -->
         <form id="formArticulo"
-          action="https://script.google.com/macros/s/AKfycbxCNaAPJlTpWK32ka58j-RmS7po4CIIzrp-TJr_kFX1IdwmmwVtj48lfZpr05TrqecV/exec"
+          action="https://script.google.com/macros/s/AKfycbyekYhaZVjI6pb1PhatEX9mH9d43zs2rM6jPR9xBEOhYh41Vb0NMkokGlxkIz6AzlCG/exec"
           method="POST" class="grid grid-cols-2 gap-[30px] text-[16px] w-full hidden">
           <input type="hidden" name="form_id" value="articulos_revista" />
 
@@ -893,8 +893,9 @@
   <script src="assets/js/accordion.js"></script>
 
 
-  <script>
+  <!-- <script>
     // Función para obtener los datos y anexar reCAPTCHA
+    /*
     async function ejecutarRecaptchaYEnviar(form, actionName) {
       return new Promise((resolve, reject) => {
         // 1. Ejecutar reCAPTCHA v3 con una acción específica
@@ -914,7 +915,8 @@
         });
       });
     }
-
+    */
+   /*
     async function handleFormSubmit(formSelector, actionName) {
       const form = document.querySelector(formSelector);
       if (!form) return;
@@ -962,10 +964,17 @@
           });
           const text = await res.text();
 
-          // Manejo de respuesta de éxito o error del Apps Script
-          if (text && text.includes("Verificación de seguridad fallida")) {
-            throw new Error("Verificación de seguridad fallida. Inténtalo de nuevo.");
+          // Manejo de respuestas del Apps Script
+          if (
+            text &&
+            (
+              text.includes("Verificación de seguridad fallida") ||
+              text.includes("⏳ Este formulario estará disponible")
+            )
+          ) {
+            throw new Error(text);
           }
+
 
           await Swal.fire({
             title: "¡Gracias!",
@@ -991,11 +1000,11 @@
         }
       });
     }
-
+    */
     // Inicializar los manejadores de formulario con sus acciones de reCAPTCHA
-    handleFormSubmit("#formAnuncio", 'anuncio_revista');
-    handleFormSubmit("#formArticulo", 'articulo_revista');
-  </script>
+    // handleFormSubmit("#formAnuncio", 'anuncio_revista');
+    // handleFormSubmit("#formArticulo", 'articulo_revista');
+  </script> -->
 
 
   <script>
@@ -1024,6 +1033,75 @@
       },
     });
   </script>
+  <script>
+    (function () {
+      const apertura = new Date("2026-01-08T09:00:00-06:00");
+      const ahora = new Date();
+  
+      if (ahora < apertura) {
+        document.querySelectorAll("#formAnuncio, #formArticulo").forEach(form => {
+          form.querySelectorAll("input, textarea, select, button").forEach(el => {
+            el.disabled = true;
+          });
+        });
+  
+        const aviso = document.createElement("div");
+        aviso.className = "mb-[20px] p-[15px] bg-yellow-100 text-yellow-800 rounded-[8px] text-center font-medium";
+        aviso.innerText = "⏳ Los registros abrirán el 8 de enero a las 9:00 am.";
+  
+        document.querySelector("#registro .container").prepend(aviso);
+      }
+    })();
+  </script>
+  <script>
+    function manejarFormulario(formId) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+  
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+  
+        const btn = form.querySelector('button[type="submit"]');
+        const textoOriginal = btn.innerHTML;
+  
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Enviando...`;
+  
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+          });
+  
+          const texto = await res.text();
+  
+          await Swal.fire({
+            title: "¡Registro enviado!",
+            text: texto || "Hemos recibido tu solicitud. Revisa tu correo.",
+            icon: "success",
+            confirmButtonColor: "#5B21B6",
+          });
+  
+          form.reset();
+        } catch (err) {
+          Swal.fire({
+            title: "Error",
+            text: "No se pudo enviar el formulario. Intenta nuevamente.",
+            icon: "error",
+          });
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = textoOriginal;
+        }
+      });
+    }
+  
+    manejarFormulario("formAnuncio");
+    manejarFormulario("formArticulo");
+  </script>
+  
+  
+  
 </body>
 
 <!-- Mirrored from edutics.temptics.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Jun 2025 23:06:13 GMT -->
