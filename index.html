@@ -553,7 +553,9 @@
               <option>Media plana horizontal</option>
               <option>Portada + 2 interiores</option>
               <option>Contraportada</option>
-              <option>2ª o 3ª de forros</option>
+              <option>2ª de Forros</option>
+              <option>3ª de Forros</option>
+              <option>Página 1</option>
             </select>
           </div>
 
@@ -735,19 +737,51 @@
                 </td>
               </tr>
 
-              <!-- 2ª y 3ª de forros -->
+              <!-- 2ª de Forros -->
               <tr class="hover:bg-[#f8f8f8] transition-all duration-200">
                 <td class="py-[18px] px-[25px] text-left font-medium text-edblue">
-                  2ª y 3ª de forros
+                  2ª de Forros
                 </td>
                 <td class="py-[18px] px-[25px] font-semibold text-green-600">
-                  $10,900
+                  $9,956 + IVA
                 </td>
                 <td class="py-[18px] px-[25px] font-semibold text-edpurple">
-                  $16,300
+                  $9,956 + IVA
                 </td>
                 <td class="py-[18px] px-[25px] font-semibold text-edblue">
-                  $13,600
+                  $9,956 + IVA
+                </td>
+              </tr>
+
+              <!-- 3ª de Forros -->
+              <tr class="hover:bg-[#f8f8f8] transition-all duration-200">
+                <td class="py-[18px] px-[25px] text-left font-medium text-edblue">
+                  3ª de Forros
+                </td>
+                <td class="py-[18px] px-[25px] font-semibold text-green-600">
+                  $8,756 + IVA
+                </td>
+                <td class="py-[18px] px-[25px] font-semibold text-edpurple">
+                  $8,756 + IVA
+                </td>
+                <td class="py-[18px] px-[25px] font-semibold text-edblue">
+                  $8,756 + IVA
+                </td>
+              </tr>
+
+              <!-- Página 1 -->
+              <tr class="hover:bg-[#f8f8f8] transition-all duration-200">
+                <td class="py-[18px] px-[25px] text-left font-medium text-edblue">
+                  Página 1
+                </td>
+                <td class="py-[18px] px-[25px] font-semibold text-green-600">
+                  $9,956 + IVA
+                </td>
+                <td class="py-[18px] px-[25px] font-semibold text-edpurple">
+                  $9,956 + IVA
+                </td>
+                <td class="py-[18px] px-[25px] font-semibold text-edblue">
+                  $9,956 + IVA
                 </td>
               </tr>
             </tbody>
@@ -1049,24 +1083,86 @@
   </script>
   <script>
     (function () {
-      const apertura = new Date("2026-01-08T09:00:00-06:00");
+      const apertura = new Date("2026-04-10T09:00:00-06:00");
       const ahora = new Date();
-  
+
       if (ahora < apertura) {
         document.querySelectorAll("#formAnuncio, #formArticulo").forEach(form => {
           form.querySelectorAll("input, textarea, select, button").forEach(el => {
             el.disabled = true;
           });
         });
-  
+
         const aviso = document.createElement("div");
-        aviso.className = "mb-[20px] p-[15px] bg-yellow-100 text-yellow-800 rounded-[8px] text-center font-medium";
-        aviso.innerText = "⏳ Los registros abrirán el 8 de enero a las 9:00 am.";
-  
+        aviso.className = "mb-[40px] rounded-[16px] overflow-hidden text-center";
+        aviso.innerHTML = `
+          <div style="background: linear-gradient(135deg, #2D1B69 0%, #5B21B6 50%, #009A6E 100%); padding: 32px 24px; position: relative;">
+            <div style="position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255,255,255,0.05) 0%, transparent 50%);"></div>
+            <div style="position: relative; z-index: 1;">
+              <div style="font-size: 36px; margin-bottom: 8px;">
+                <i class="fa-solid fa-bell" style="animation: bellSwing 2s ease-in-out infinite;"></i>
+              </div>
+              <h3 style="color: white; font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px;">
+                Los registros abren pronto
+              </h3>
+              <p style="color: rgba(255,255,255,0.85); font-size: 15px; margin-bottom: 20px;">
+                10 de abril de 2026 &bull; 9:00 AM (hora centro)
+              </p>
+              <div id="countdown" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 14px 18px; min-width: 80px;">
+                  <span id="cd-days" style="display: block; font-size: 28px; font-weight: 800; color: white; line-height: 1;">00</span>
+                  <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); margin-top: 4px; display: block;">Dias</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 14px 18px; min-width: 80px;">
+                  <span id="cd-hours" style="display: block; font-size: 28px; font-weight: 800; color: white; line-height: 1;">00</span>
+                  <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); margin-top: 4px; display: block;">Horas</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 14px 18px; min-width: 80px;">
+                  <span id="cd-mins" style="display: block; font-size: 28px; font-weight: 800; color: white; line-height: 1;">00</span>
+                  <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); margin-top: 4px; display: block;">Min</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 14px 18px; min-width: 80px;">
+                  <span id="cd-secs" style="display: block; font-size: 28px; font-weight: 800; color: white; line-height: 1;">00</span>
+                  <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.7); margin-top: 4px; display: block;">Seg</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
         document.querySelector("#registro .container").prepend(aviso);
+
+        function updateCountdown() {
+          const now = new Date();
+          const diff = apertura - now;
+          if (diff <= 0) {
+            location.reload();
+            return;
+          }
+          const d = Math.floor(diff / 86400000);
+          const h = Math.floor((diff % 86400000) / 3600000);
+          const m = Math.floor((diff % 3600000) / 60000);
+          const s = Math.floor((diff % 60000) / 1000);
+          document.getElementById("cd-days").textContent = String(d).padStart(2, "0");
+          document.getElementById("cd-hours").textContent = String(h).padStart(2, "0");
+          document.getElementById("cd-mins").textContent = String(m).padStart(2, "0");
+          document.getElementById("cd-secs").textContent = String(s).padStart(2, "0");
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
       }
     })();
   </script>
+  <style>
+    @keyframes bellSwing {
+      0%, 100% { transform: rotate(0deg); }
+      15% { transform: rotate(14deg); }
+      30% { transform: rotate(-12deg); }
+      45% { transform: rotate(8deg); }
+      60% { transform: rotate(-6deg); }
+      75% { transform: rotate(0deg); }
+    }
+  </style>
   <script>
     function manejarFormulario(formId) {
       const form = document.getElementById(formId);
